@@ -1,28 +1,97 @@
-import dataClasses.Comments
+import dataClasses.Comment
 import dataClasses.Likes
 import dataClasses.Post
 import dataClasses.Reposts
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeEach
+import org.junit.Test
+import org.junit.Before
+import org.junit.Assert
 
 class WallServiceTest {
 
-    @BeforeEach
     fun clearBeforeTest() {
         WallService.clear()
     }
 
-    @Test
-    fun add() {
-        val comment = Comments(
-            5
-        )
+    @Test(expected = PostNotFountException::class)
+    fun shouldThrow() {
+        val comments = emptyArray<Comment>()
         val like = Likes(5, true, true, true)
         val reposts = Reposts(5, true)
-        val photo = Photo(1,1,"somePhoto")
-        val video = Video(12,1,"videoTitle", 50)
-        val attachm = arrayOf(photo,video)
+        val photo = Photo(1, 1, "somePhoto")
+        val video = Video(12, 1, "videoTitle", 50)
+        val attachm = arrayOf(photo, video)
+        val post = Post(
+            0,
+            1,
+            1,
+            1,
+            1122,
+            "text",
+            1,
+            1,
+            comments = comments,
+            like = like,
+            reposts = reposts,
+            postType = "",
+            signerId = 2,
+            postponedId = 1,
+            attachments = attachm,
+            copyHistory = emptyArray(),
+            copyright = null,
+            donut = null,
+            geo = null,
+            views = null
+        )
+
+        val comment = Comment(1, 2, 3, "Некий текст", 5, 6, emptyArray())
+        WallService.add(post)
+        WallService.add(post)
+        WallService.createComment(12, comment)
+    }
+
+    @Test()
+    fun shouldNotThrow() {
+        val comments = emptyArray<Comment>()
+        val like = Likes(5, true, true, true)
+        val reposts = Reposts(5, true)
+        val photo = Photo(1, 1, "somePhoto")
+        val video = Video(12, 1, "videoTitle", 50)
+        val attachm = arrayOf(photo, video)
+        val post = Post(
+            1,
+            1,
+            1,
+            1,
+            1122,
+            "text",
+            1,
+            1,
+            comments = comments,
+            like = like,
+            reposts = reposts,
+            postType = "",
+            signerId = 2,
+            postponedId = 1,
+            attachments = attachm,
+            copyHistory = emptyArray(),
+            copyright = null,
+            donut = null,
+            geo = null,
+            views = null
+        )
+        val comment = Comment(1, 2, 3, "Некий текст", 5, 6, emptyArray())
+        WallService.add(post)
+        WallService.createComment(WallService.posts[WallService.posts.lastIndex].id, comment)
+    }
+
+    @Test
+    fun add() {
+        val comment = emptyArray<Comment>()
+        val like = Likes(5, true, true, true)
+        val reposts = Reposts(5, true)
+        val photo = Photo(1, 1, "somePhoto")
+        val video = Video(12, 1, "videoTitle", 50)
+        val attachm = arrayOf(photo, video)
         val post = Post(
             0,
             1,
@@ -47,14 +116,12 @@ class WallServiceTest {
         )
 
         WallService.add(post)
-        assertTrue(post.id != 0)
+        Assert.assertTrue(post.id != 0)
     }
 
     @Test
     fun updateWithExistId() {
-        val comment = Comments(
-            5
-        )
+        val comment = emptyArray<Comment>()
         val like = Likes(5, true, true, true)
         val reposts = Reposts(5, true)
         val post = Post(
@@ -80,14 +147,12 @@ class WallServiceTest {
             views = null
         )
         WallService.posts = arrayOf(post)
-        assertTrue(WallService.update(post))
+        Assert.assertTrue(WallService.update(post))
     }
 
     @Test
     fun updateWithNotExistId() {
-        val comment = Comments(
-            5
-        )
+        val comment = emptyArray<Comment>()
         val like = Likes(5, true, true, true)
         val reposts = Reposts(5, true)
         val post = Post(
@@ -136,6 +201,6 @@ class WallServiceTest {
             views = null
         )
         WallService.posts = arrayOf(post)
-        assertFalse(WallService.update(post2))
+        Assert.assertFalse(WallService.update(post2))
     }
 }

@@ -12,7 +12,7 @@ data class Post(
     val replyOwnerId: Int?,
     val replyPostId: Int,
     var friendsOnly: Boolean = false,
-    var comments: Comments,
+    var comments: Array<Comment>,
     var copyright: Copyright?,
     var like: Likes,
     var reposts: Reposts?,
