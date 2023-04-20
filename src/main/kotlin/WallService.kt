@@ -15,7 +15,7 @@ object WallService {
             val array = arrayOfNulls<Comment>(posts[index].comments.size + 1)
             System.arraycopy(posts[index].comments, 0, array, 0, posts[index].comments.size)
             array[posts[index].comments.size] = comment
-            n - index
+            n = index
             posts[n].comments = array.requireNoNulls()
         }
         return posts[n].comments.last()
@@ -38,7 +38,7 @@ object WallService {
 
         for (n in 0..posts.lastIndex) {
             if (posts[n].id == post.id) {
-                posts.set(n, post)
+                posts[n] = post
                 isUpdate = true
             }
         }
