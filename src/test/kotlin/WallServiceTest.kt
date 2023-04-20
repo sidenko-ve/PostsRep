@@ -19,7 +19,9 @@ class WallServiceTest {
         val reposts = Reposts(5, true)
         val photo = Photo(1, 1, "somePhoto")
         val video = Video(12, 1, "videoTitle", 50)
-        val attachm = arrayOf(photo, video)
+        val photoAttachment = PhotoAttachment(photo)
+        val videoAttachment = VideoAttachment(video)
+        val attachm = arrayOf(photoAttachment, videoAttachment)
         val post = Post(
             0,
             1,
@@ -56,7 +58,9 @@ class WallServiceTest {
         val reposts = Reposts(5, true)
         val photo = Photo(1, 1, "somePhoto")
         val video = Video(12, 1, "videoTitle", 50)
-        val attachm = arrayOf(photo, video)
+        val photoAttachment = PhotoAttachment(photo)
+        val videoAttachment = VideoAttachment(video)
+        val attachm = arrayOf(photoAttachment, videoAttachment)
         val post = Post(
             1,
             1,
@@ -91,7 +95,9 @@ class WallServiceTest {
         val reposts = Reposts(5, true)
         val photo = Photo(1, 1, "somePhoto")
         val video = Video(12, 1, "videoTitle", 50)
-        val attachm = arrayOf(photo, video)
+        val photoAttachment = PhotoAttachment(photo)
+        val videoAttachment = VideoAttachment(video)
+        val attachm = arrayOf(photoAttachment, videoAttachment)
         val post = Post(
             0,
             1,
